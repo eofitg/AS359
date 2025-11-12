@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class HitBoxRenderer {
 
     public static boolean ENABLED = true;
+    public static boolean DEPTH = false;
 
     private static final Minecraft mc = Minecraft.getMinecraft();
 
@@ -55,7 +56,7 @@ public class HitBoxRenderer {
 
     private static void setupRenderingState() {
         GlStateManager.disableTexture2D();
-        //GlStateManager.disableDepth();
+        if (DEPTH) GlStateManager.disableDepth();
         GlStateManager.disableLighting();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
@@ -65,7 +66,7 @@ public class HitBoxRenderer {
     private static void restoreRenderingState() {
         mc.entityRenderer.enableLightmap();
         GlStateManager.enableLighting();
-        //GlStateManager.enableDepth();
+        if (DEPTH) GlStateManager.enableDepth();
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }

@@ -18,7 +18,7 @@ public class ASCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/as toggle";
+        return "/as toggle|depth";
     }
 
     @Override
@@ -36,6 +36,9 @@ public class ASCommand extends CommandBase {
         String sub = args[0].toLowerCase();
         if (sub.equals("toggle")) {
             HitBoxRenderer.ENABLED = !HitBoxRenderer.ENABLED;
+        }
+        else if (sub.equals("depth")) {
+            HitBoxRenderer.DEPTH = !HitBoxRenderer.DEPTH;
         }
     }
 
