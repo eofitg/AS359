@@ -10,4 +10,4 @@ Clear armor stands for `forge-1.8.9`.
 
 `/as depth`
 
-`/as set/reset` - Set the target by skull owner
+`/as set/reset` - Set the target by skull owner (with the armor stand you're aiming)
