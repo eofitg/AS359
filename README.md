@@ -9,3 +9,7 @@ Clear armor stands.
 ## Command
 
 `/as toggle`
+
+`/as depth`
+
+`/as set/reset` - Set the target by skull owner
