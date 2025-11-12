@@ -1,12 +1,12 @@
 package net.eofitg.as359.command;
 
+import net.eofitg.as359.helper.ArmorStandHelper;
 import net.eofitg.as359.renderer.HitBoxRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.MovingObjectPosition;
 
 public class ASCommand extends CommandBase {
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -18,7 +18,7 @@ public class ASCommand extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/as toggle|depth";
+        return "/as toggle|depth|set|reset";
     }
 
     @Override
@@ -34,25 +34,36 @@ public class ASCommand extends CommandBase {
         }
 
         String sub = args[0].toLowerCase();
-        if (sub.equals("toggle")) {
-            HitBoxRenderer.ENABLED = !HitBoxRenderer.ENABLED;
-        }
-        else if (sub.equals("depth")) {
-            HitBoxRenderer.DEPTH = !HitBoxRenderer.DEPTH;
+        switch (sub) {
+            case "toggle":
+                HitBoxRenderer.ENABLED = !HitBoxRenderer.ENABLED;
+                break;
+            case "depth":
+                HitBoxRenderer.DEPTH = !HitBoxRenderer.DEPTH;
+                break;
+            case "set":
+                EntityArmorStand as = getMouseOverAS();
+                if (as != null) {
+                    String id = ArmorStandHelper.getId(as);
+                    if (id != null) {
+                        HitBoxRenderer.TARGET = id;
+                    }
+                }
+                break;
+            case "reset":
+                HitBoxRenderer.TARGET = "";
+                break;
         }
     }
 
-    public static Entity getTargetedEntity(float range) {
-        if (mc.thePlayer == null || mc.theWorld == null) {
+    public static EntityArmorStand getMouseOverAS() {
+        if (mc.thePlayer == null || mc.theWorld == null || mc.objectMouseOver == null) {
             return null;
         }
-
-        MovingObjectPosition objectMouseOver = mc.thePlayer.rayTrace(range, 1.0F);
-        if (objectMouseOver != null &&
-                objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-            return objectMouseOver.entityHit;
+        if (mc.objectMouseOver.entityHit instanceof EntityArmorStand) {
+            return (EntityArmorStand) mc.objectMouseOver.entityHit;
         }
-
         return null;
     }
+
 }

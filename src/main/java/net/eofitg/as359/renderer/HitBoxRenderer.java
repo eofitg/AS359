@@ -1,5 +1,6 @@
 package net.eofitg.as359.renderer;
 
+import net.eofitg.as359.helper.ArmorStandHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -8,10 +9,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Objects;
+
 public class HitBoxRenderer {
 
     public static boolean ENABLED = true;
     public static boolean DEPTH = false;
+    public static String TARGET = "";
 
     private static final Minecraft mc = Minecraft.getMinecraft();
 
@@ -19,7 +23,12 @@ public class HitBoxRenderer {
     public void onRenderArmorStand(RenderLivingEvent.Post<EntityArmorStand> event) {
         if (!ENABLED) return;
         if (event.entity instanceof EntityArmorStand) {
-            renderHitBox((EntityArmorStand) event.entity);
+            EntityArmorStand armorStand = (EntityArmorStand) event.entity;
+            if (!Objects.equals(TARGET, "")) {
+                String id = ArmorStandHelper.getId((EntityArmorStand) event.entity);
+                if (!TARGET.equals(id)) return;
+            }
+            renderHitBox(armorStand);
         }
     }
 
