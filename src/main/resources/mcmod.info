@@ -1,0 +1,14 @@
+[
+{
+  "modid": "as359",
+  "name": "AS359",
+  "description": "Clear armor stands.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/eofitg/AS359",
+  "updateUrl": "https://github.com/eofitg/AS359/releases",
+  "authorList": ["eofitg"],
+  "credits": "",
+  "logoFile": ""
+}
+]
