@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 @Mod(
         modid = "as359",
         name = "AS359",
-        version = "1.0",
+        version = "1.1",
         acceptedMinecraftVersions = "[1.8.9]",
         clientSideOnly = true
 )
